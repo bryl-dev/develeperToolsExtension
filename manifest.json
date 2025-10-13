@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Dev Toolbox",
+  "version": "1.0",
+  "description": "A toolbox with handy utilities for developers.",
+  "action": {
+    "default_popup": "src/popup/popup.html"
+  },
+  "icons": {
+    "16": "public/icon.png",
+    "48": "public/icon.png",
+    "128": "public/icon.png"
+  },
+  "permissions": []
+}

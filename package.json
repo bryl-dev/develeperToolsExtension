@@ -1,0 +1,17 @@
+{
+  "name": "develepertoolsextension",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "esbuild": "^0.25.10",
+    "typescript": "^5.9.3"
+  }
+}

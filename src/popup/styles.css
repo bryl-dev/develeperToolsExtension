@@ -1,0 +1,52 @@
+.color-tool {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+  font-family: system-ui, sans-serif;
+  width: 250px;
+}
+
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-preview {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.button-row button {
+  flex: 1 1 45%;
+  min-width: 90px;
+}
+
+.button-row button:hover {
+  background: #d5d5d5;
+}
+
+.button-row button.copied {
+  background: #b4f2b4;
+}
+
+.color-tool p {
+  margin: 4px 0 0;
+  font-size: 0.9em;
+  color: #333;
+  word-break: break-word;
+}
