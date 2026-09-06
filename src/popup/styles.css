@@ -1,3 +1,436 @@
+/* Shared by the popup and the full-page toolbox. */
+
+:root {
+  --accent: #2f6feb;
+  --border: #d5d9de;
+  --muted: #6b7280;
+  --bg-soft: #fafbfc;
+  --danger: #b4232a;
+  --danger-bg: #fdf1f1;
+  --good: #17692b;
+  --good-bg: #eaf7ed;
+}
+
+.tool {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #222;
+}
+
+/* Layout ------------------------------------------------------------------ */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.field-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* Controls ---------------------------------------------------------------- */
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: #222;
+}
+
+textarea.input {
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.82rem;
+  resize: vertical;
+}
+
+.input:focus {
+  outline: 2px solid rgba(47, 111, 235, 0.35);
+  outline-offset: -1px;
+  border-color: var(--accent);
+}
+
+.input.invalid {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.indent-input,
+.flags-input {
+  max-width: 80px;
+}
+
+.btn {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #f0f1f3;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: #222;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn:hover:not(:disabled) {
+  background: #e3e5e8;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #2760d0;
+}
+
+.btn.copied {
+  background: #b4f2b4;
+  border-color: #7fd47f;
+}
+
+.btn-icon {
+  padding: 4px 8px;
+  min-width: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Output ------------------------------------------------------------------ */
+
+.output {
+  margin: 0;
+  padding: 8px;
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-soft);
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: pre-wrap;
+}
+
+.error {
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--danger-bg);
+  border: 1px solid #f0c3c3;
+  color: var(--danger);
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge-good {
+  background: var(--good-bg);
+  color: var(--good);
+}
+
+.badge-bad {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.claims {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.hash-output {
+  display: block;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-soft);
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.78rem;
+  word-break: break-all;
+  min-height: 1.2em;
+}
+
+/* Case converter ---------------------------------------------------------- */
+
+.case-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.case-row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+}
+
+.case-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.case-value {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+/* Regex tester ------------------------------------------------------------ */
+
+.match-preview {
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-soft);
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 220px;
+  overflow: auto;
+}
+
+.match-preview:empty {
+  display: none;
+}
+
+mark.match {
+  background: #ffe58a;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+
+.match-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.group-block {
+  padding: 6px 8px;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-soft);
+}
+
+.group-row {
+  white-space: pre-wrap;
+  color: #444;
+}
+
+/* URL parameters ---------------------------------------------------------- */
+
+.params {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.param-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto;
+  gap: 6px;
+}
+
+/* Key/value tables -------------------------------------------------------- */
+
+.kv-table {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kv-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+}
+
+.kv-key {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.kv-value {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+/* PDF merge --------------------------------------------------------------- */
+
+.drop-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 16px;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  background: var(--bg-soft);
+  text-align: center;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.drop-zone:hover,
+.drop-zone.dragging {
+  border-color: var(--accent);
+  background: #f2f6ff;
+  color: var(--accent);
+}
+
+.drop-zone strong {
+  font-size: 0.95rem;
+  color: #222;
+}
+
+.hidden-file {
+  display: none;
+}
+
+.pdf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pdf-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.pdf-row-error {
+  border-color: #f0c3c3;
+  background: var(--danger-bg);
+}
+
+.pdf-row-warn {
+  border-color: #e8c98a;
+  background: #fdf8ec;
+}
+
+.pdf-row-warn .pdf-meta {
+  color: #8a5a00;
+}
+
+.pdf-order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pdf-row-error .pdf-order {
+  background: var(--danger);
+}
+
+.pdf-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pdf-name {
+  font-size: 0.86rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdf-meta {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.pdf-row-error .pdf-meta {
+  color: var(--danger);
+}
+
+.pdf-controls {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.pdf-range {
+  width: 110px;
+  font-size: 0.8rem;
+}
+
+/* Color picker (original tool) -------------------------------------------- */
+
 .color-tool {
   display: flex;
   flex-direction: column;
@@ -7,7 +440,18 @@
   border-radius: 8px;
   background: #fafafa;
   font-family: system-ui, sans-serif;
-  width: 250px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.color-input {
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
 }
 
 .color-row {
@@ -34,6 +478,13 @@
 .button-row button {
   flex: 1 1 45%;
   min-width: 90px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #f0f1f3;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
 }
 
 .button-row button:hover {
@@ -49,4 +500,5 @@
   font-size: 0.9em;
   color: #333;
   word-break: break-word;
+  padding-left: 8px;
 }

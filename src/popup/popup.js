@@ -1,100 +1,85 @@
-"use strict";
-(() => {
-  // src/tools/ColorTool.ts
-  function ColorTool() {
-    const wrapper = document.createElement("div");
-    wrapper.className = "tool color-tool";
-    const input = document.createElement("input");
-    input.type = "color";
-    const pickButton = document.createElement("button");
-    pickButton.textContent = "Pick from page";
-    const copyButton = document.createElement("button");
-    copyButton.textContent = "Copy HEX";
-    const output = document.createElement("p");
-    output.textContent = "Pick a color\u2026";
-    let currentHex = null;
-    input.addEventListener("input", () => {
-      showColor(input.value);
-    });
-    pickButton.addEventListener("click", async () => {
-      const hex = await pickColorFromPage();
-      if (hex) {
-        input.value = hex;
-        showColor(hex);
-      }
-    });
-    copyButton.addEventListener("click", () => {
-      if (currentHex) {
-        navigator.clipboard.writeText(currentHex).then(() => {
-          copyButton.textContent = "Copied!";
-          setTimeout(() => copyButton.textContent = "Copy HEX", 1e3);
-        });
-      }
-    });
-    function showColor(hex) {
-      currentHex = hex;
-      output.textContent = `HEX: ${hex}, RGB: ${hexToRgb(hex)}`;
-    }
-    wrapper.appendChild(input);
-    wrapper.appendChild(pickButton);
-    wrapper.appendChild(copyButton);
-    wrapper.appendChild(output);
-    return wrapper;
-  }
-  async function pickColorFromPage() {
-    if ("EyeDropper" in window) {
-      const eyeDropper = new window.EyeDropper();
-      try {
-        const result = await eyeDropper.open();
-        return result.sRGBHex;
-      } catch {
-        return null;
-      }
-    }
-    return null;
-  }
-  function hexToRgb(hex) {
-    const bigint = parseInt(hex.slice(1), 16);
-    const r = bigint >> 16 & 255;
-    const g = bigint >> 8 & 255;
-    const b = bigint & 255;
-    return `rgb(${r}, ${g}, ${b})`;
-  }
+import {
+  GROUP_ORDER,
+  TOOLS,
+  getTool,
+  pageUrl
+} from "../chunks/chunk-5R2GIOIL.js";
+import "../chunks/chunk-A2N3EO2G.js";
 
-  // src/tools/JsonTool.ts
-  function JsonTool() {
-    const wrapper = document.createElement("div");
-    const textarea = document.createElement("textarea");
-    textarea.rows = 5;
-    textarea.style.width = "100%";
-    const button = document.createElement("button");
-    button.textContent = "Format JSON";
-    const output = document.createElement("pre");
-    button.addEventListener("click", () => {
-      try {
-        const parsed = JSON.parse(textarea.value);
-        output.textContent = JSON.stringify(parsed, null, 2);
-      } catch {
-        output.textContent = "\u274C Invalid JSON";
-      }
-    });
-    wrapper.append(textarea, button, output);
-    return wrapper;
+// src/popup/popup.ts
+var select = document.getElementById("toolSelect");
+var container = document.getElementById("toolContainer");
+var openPageLink = document.getElementById("openPage");
+var LAST_TOOL_KEY = "devToolbox.lastTool";
+buildOptions();
+restoreLastTool();
+select.addEventListener("change", () => {
+  const tool = getTool(select.value);
+  if (!tool) {
+    container.replaceChildren();
+    return;
   }
-
-  // src/popup/popup.ts
-  var select = document.getElementById("toolSelect");
-  var container = document.getElementById("toolContainer");
-  select.addEventListener("change", () => {
-    container.innerHTML = "";
-    switch (select.value) {
-      case "color":
-        container.appendChild(ColorTool());
-        break;
-      case "json":
-        container.appendChild(JsonTool());
-        break;
+  void activate(tool);
+});
+openPageLink.addEventListener("click", (event) => {
+  event.preventDefault();
+  openInTab(select.value || void 0);
+});
+function buildOptions() {
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "-- Select a tool --";
+  select.append(placeholder);
+  for (const group of GROUP_ORDER) {
+    const tools = TOOLS.filter((t) => t.group === group);
+    if (tools.length === 0) continue;
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = group;
+    for (const tool of tools) {
+      const option = document.createElement("option");
+      option.value = tool.id;
+      option.textContent = tool.surface === "page" ? `${tool.label} (opens tab)` : tool.label;
+      optgroup.append(option);
     }
-  });
-})();
+    select.append(optgroup);
+  }
+}
+async function activate(tool) {
+  if (tool.surface === "page") {
+    openInTab(tool.id);
+    return;
+  }
+  container.replaceChildren();
+  try {
+    container.append(await tool.mount());
+    rememberTool(tool.id);
+  } catch (e) {
+    const error = document.createElement("p");
+    error.className = "error";
+    error.textContent = `Could not load ${tool.label}: ${e instanceof Error ? e.message : String(e)}`;
+    container.append(error);
+  }
+}
+function openInTab(toolId) {
+  chrome.tabs.create({ url: pageUrl(toolId) });
+  window.close();
+}
+function rememberTool(id) {
+  try {
+    localStorage.setItem(LAST_TOOL_KEY, id);
+  } catch {
+  }
+}
+function restoreLastTool() {
+  let last = null;
+  try {
+    last = localStorage.getItem(LAST_TOOL_KEY);
+  } catch {
+    return;
+  }
+  const tool = last ? getTool(last) : void 0;
+  if (!tool || tool.surface === "page") return;
+  select.value = tool.id;
+  void activate(tool);
+}
 //# sourceMappingURL=popup.js.map

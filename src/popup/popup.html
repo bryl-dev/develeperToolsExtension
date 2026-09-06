@@ -9,24 +9,24 @@
       html, body {
         margin: 0;
         padding: 0;
-        width: 340px;
+        width: 360px;
         min-height: 320px;
-        max-height: 500px;
+        max-height: 560px;
         overflow-y: auto;
         background: #f5f5f5;
         font-family: system-ui, sans-serif;
       }
 
       h3 {
-        margin: 12px;
+        margin: 12px 12px 8px;
         font-size: 1.1rem;
         text-align: center;
         color: #222;
       }
 
-      select {
+      #toolSelect {
         display: block;
-        margin: 0 auto 12px auto;
+        margin: 0 auto 8px auto;
         padding: 6px 8px;
         width: 90%;
         border-radius: 6px;
@@ -35,9 +35,23 @@
         background: white;
       }
 
+      .popup-actions {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      #openPage {
+        font-size: 0.8rem;
+        color: #2f6feb;
+        text-decoration: none;
+      }
+
+      #openPage:hover {
+        text-decoration: underline;
+      }
+
       #toolContainer {
-        display: flex;
-        justify-content: center;
+        display: block;
         padding: 0 10px 12px 10px;
       }
     </style>
@@ -46,22 +60,14 @@
   <body>
     <h3>Dev Toolbox</h3>
 
-    <select id="toolSelect">
-      <option value="">-- Select a tool --</option>
-      <option value="color">Color Picker</option>
-      <option value="json">JSON Formatter</option>
-    </select>
+    <select id="toolSelect"></select>
+
+    <div class="popup-actions">
+      <a id="openPage" href="#">Open full page &rarr;</a>
+    </div>
 
     <div id="toolContainer"></div>
 
     <script type="module" src="popup.js"></script>
-
-    <script>
-      function resizePopup() {
-        document.body.style.height = document.body.scrollHeight + "px"
-      }
-      new MutationObserver(resizePopup).observe(document.body, { childList: true, subtree: true })
-      resizePopup()
-    </script>
   </body>
 </html>

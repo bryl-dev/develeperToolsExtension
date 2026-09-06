@@ -1,0 +1,8 @@
+node_modules/
+
+# Large, regenerated on every build. The bundled .js files stay tracked
+# because Chrome loads them directly when the extension is loaded unpacked.
+*.js.map
+
+# Legacy tsc output; the build now emits next to the HTML that loads it.
+dist/
