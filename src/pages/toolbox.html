@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../popup/styles.css" />
+    <title>Dev Toolbox</title>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #eef1f4;
+        font-family: system-ui, sans-serif;
+        color: #222;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px 20px 60px;
+        align-items: start;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 24px;
+        background: #fff;
+        border: 1px solid #dcdfe3;
+        border-radius: 10px;
+        padding: 14px;
+      }
+
+      .sidebar h1 {
+        font-size: 1.05rem;
+        margin: 0 0 12px;
+      }
+
+      .sidebar-group {
+        margin: 14px 0 6px;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #7a828c;
+      }
+
+      .sidebar-link {
+        display: block;
+        padding: 6px 8px;
+        border-radius: 6px;
+        color: #2b2f36;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .sidebar-link:hover {
+        background: #eef1f4;
+      }
+
+      .sidebar-link.active {
+        background: #2f6feb;
+        color: #fff;
+      }
+
+      .panel {
+        background: #fff;
+        border: 1px solid #dcdfe3;
+        border-radius: 10px;
+        padding: 20px;
+        min-height: 400px;
+      }
+
+      .panel h2 {
+        margin: 0 0 16px;
+        font-size: 1.3rem;
+      }
+
+      .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .tool-card {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 14px;
+        border: 1px solid #dcdfe3;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #222;
+        background: #fafbfc;
+      }
+
+      .tool-card:hover {
+        border-color: #2f6feb;
+        background: #f2f6ff;
+      }
+
+      .tool-card span {
+        font-size: 0.78rem;
+        color: #7a828c;
+      }
+
+      /* The page has room, so let tools breathe compared to the popup. */
+      .panel .tool {
+        width: auto;
+        max-width: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <h1>Dev Toolbox</h1>
+        <input id="toolSearch" class="input" type="search" placeholder="Search tools…" />
+        <nav id="toolList"></nav>
+      </aside>
+
+      <main class="panel">
+        <h2 id="toolHeading">Dev Toolbox</h2>
+        <div id="toolContent"></div>
+      </main>
+    </div>
+
+    <script type="module" src="toolbox.js"></script>
+  </body>
+</html>

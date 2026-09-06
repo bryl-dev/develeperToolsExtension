@@ -1,10 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Dev Toolbox",
-  "version": "1.0",
-  "description": "A toolbox with handy utilities for developers.",
+  "version": "1.1",
+  "description": "Offline developer utilities: PDF merge, JSON, Base64, JWT, hashes, UUIDs, timestamps, regex and more.",
   "action": {
-    "default_popup": "src/popup/popup.html"
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Dev Toolbox"
   },
   "icons": {
     "16": "public/icon.png",
