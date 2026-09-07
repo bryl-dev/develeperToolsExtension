@@ -8,9 +8,9 @@
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bryan Liao",
   "license": "ISC",
-  "description": "",
+  "description": "Offline developer utilities as a Chrome extension: PDF merge, JSON, Base64, JWT, hashes, UUIDs, timestamps, regex and more.",
   "devDependencies": {
     "@types/chrome": "^0.2.8",
     "esbuild": "^0.25.10",

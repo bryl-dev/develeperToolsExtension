@@ -4,6 +4,8 @@ A Manifest V3 Chrome extension bundling eleven developer utilities — including
 
 Everything runs locally in your browser. The extension declares **no permissions**, makes no network requests, and no file or pasted value ever leaves your machine.
 
+![The Dev Toolbox full-page surface, showing the tool list in the sidebar and a grid of tool cards](docs/toolbox-page.png)
+
 ## Tools
 
 | Tool | What it does |
@@ -36,6 +38,10 @@ The bundled output is committed, so a fresh clone will load without building. Yo
 ## Two surfaces
 
 Most tools open directly in the toolbar popup. PDF Merge instead opens a full browser tab, because a 360px popup dismisses itself the moment the OS file picker takes focus — which would discard your selected files mid-merge. The popup hands off to the full page via `chrome.tabs.create`, and the same tool registry drives both surfaces.
+
+<img src="docs/popup.png" alt="The toolbar popup with its tool dropdown open, grouped into Text &amp; Encoding, Generators, Files, and Color" width="320">
+
+The popup's picker is grouped by category and labels PDF Merge as opening a tab, so the hand-off is never a surprise.
 
 ## PDF merging
 
